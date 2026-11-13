@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>يومي</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Tajawal:wght@400;500;700&display=swap">
+<style>
+:root{--bg:#f4f4f0;--card:#fff;--tx:#121212;--mu:#8a8a85;--bd:#ebebe6;--ac:#121212;--onac:#fff;--acx:#c8f23d;--hbg:#121212;--htx:#fff;--hac:#c8f23d;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a0a0a;--card:#161616;--tx:#f4f4f0;--mu:#8f8f8a;--bd:#262626;--ac:#c8f23d;--onac:#121212;--hbg:#c8f23d;--htx:#121212;--hac:#121212;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0a0a0a;--card:#161616;--tx:#f4f4f0;--mu:#8f8f8a;--bd:#262626;--ac:#c8f23d;--onac:#121212;--hbg:#c8f23d;--htx:#121212;--hac:#121212;color-scheme:dark}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:"IBM Plex Sans Arabic",Tajawal,system-ui,"Segoe UI",Tahoma,sans-serif;font-size:16px;padding-bottom:110px;min-height:100vh}
+main{max-width:560px;margin:auto;padding:18px 16px}
+h2{font-size:13px;color:var(--mu);margin:26px 4px 10px;font-weight:600;letter-spacing:.02em}
+.pt{font-size:32px;font-weight:700;margin:6px 4px 16px;letter-spacing:-.02em}
+.card{background:var(--card);border-radius:26px;padding:18px;margin-bottom:10px}
+.head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin:2px 4px 14px}
+.date{font-size:30px;font-weight:700;line-height:1.2;letter-spacing:-.02em}.sub{color:var(--mu);font-size:13px}
+.strip{display:flex;justify-content:space-between;gap:4px;margin-bottom:12px}
+.dy{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0 8px;border-radius:18px;font-size:12px;color:var(--mu)}
+.dy b{font-size:16px;color:var(--tx);font-weight:600}.dy i{width:6px;height:6px;border-radius:50%;background:var(--bd)}.dy i.h{background:var(--mu)}.dy i.f{background:var(--acx)}
+.dy.now{background:var(--card)}.dy.now b{color:var(--tx)}
+.bento{display:grid;grid-template-columns:1.5fr 1fr;gap:10px;margin-bottom:10px}
+.hc{background:var(--hbg);color:var(--htx);border-radius:26px;padding:18px;display:flex;align-items:center;gap:14px}
+.hc .sub{color:inherit;opacity:.65}
+.mini{margin:0;display:flex;flex-direction:column;justify-content:center;gap:2px}
+.big{font-size:36px;font-weight:700;line-height:1.05;letter-spacing:-.03em}.big span{font-size:16px;opacity:.5;font-weight:500}
+.ring{width:64px;height:64px;border-radius:50%;background:conic-gradient(var(--hac) calc(var(--p)*1%),#8884 0);display:grid;place-items:center;flex:none;position:relative}
+.ring:before{content:"";position:absolute;inset:6px;border-radius:50%;background:var(--hbg)}
+.ring b{position:relative;font-size:13px}
+.chal{display:block}.chal .top{display:flex;justify-content:space-between;font-size:14px}
+.bar{height:8px;background:var(--bd);border-radius:9px;overflow:hidden;margin-top:12px}.bar i{display:block;height:100%;background:var(--acx);border-radius:9px;transition:width .4s}
+.row{display:flex;align-items:center;gap:12px;background:var(--card);border-radius:22px;padding:12px;margin-bottom:8px;transition:transform .15s}
+.row:active{transform:scale(.98)}
+.tile{width:44px;height:44px;border-radius:15px;background:hsl(var(--h) 85% 55%/.17);color:hsl(var(--h) 65% 45%);display:grid;place-items:center;font-weight:700;font-size:18px;flex:none}
+.row.done .nm{opacity:.4;text-decoration:line-through}.row.done .tile{opacity:.5}
+.chk{width:34px;height:34px;border-radius:12px;border:2px solid var(--bd);background:none;color:#121212;flex:none;padding:0;cursor:pointer;display:grid;place-items:center;transition:.2s}
+.row.done .chk{background:var(--acx);border-color:var(--acx)}
+.nm{flex:1;min-width:0;font-weight:600}.nm small{display:block;color:var(--mu);font-size:12px;margin-top:2px;font-weight:400}
+.st{display:flex;align-items:center;gap:6px;font-size:13px}
+.st button,.btn,.seg button,.chip{font:inherit;border:0;background:var(--bg);color:var(--tx);border-radius:14px;padding:9px 15px;cursor:pointer;font-weight:500}
+.st button{width:30px;padding:4px 0;font-size:17px}
+.btn.p,.seg .on,.chip.on{background:var(--ac);color:var(--onac)}.btn.d{background:#ff453a22;color:#ff453a}
+.seg{display:flex;gap:4px;margin:8px 0;background:var(--bg);padding:4px;border-radius:18px}.seg button{flex:1;background:none;border-radius:14px;padding:11px 8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.chip{padding:7px 13px;font-size:13px}
+.moods{display:flex;justify-content:space-between;margin:2px 0 10px}.moods button{font-size:28px;background:none;border:0;border-radius:18px;padding:8px 10px;cursor:pointer;opacity:.5;transition:.2s}.moods .on{background:var(--acx);opacity:1;transform:scale(1.12)}
+input,select,textarea{font:inherit;width:100%;background:var(--bg);color:var(--tx);border:2px solid transparent;border-radius:16px;padding:13px;margin:6px 0;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--tx)}
+textarea{min-height:76px;resize:none}
+label{font-size:13px;color:var(--mu)}
+nav{position:fixed;inset-inline:16px;bottom:calc(10px + env(safe-area-inset-bottom,0px));background:var(--card);border-radius:28px;box-shadow:0 10px 40px #0003;display:flex;padding:6px;z-index:5;border:1px solid var(--bd)}
+nav button{flex:1;background:none;border:0;color:var(--mu);font:inherit;font-size:11px;padding:9px 4px;border-radius:22px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px}
+nav .on{color:var(--onac);background:var(--ac);font-weight:600}
+.fab{position:fixed;inset-inline-start:18px;bottom:calc(96px + env(safe-area-inset-bottom,0px));width:58px;height:58px;border-radius:20px;background:var(--acx);color:#121212;border:0;font-size:30px;box-shadow:0 10px 28px #0004;z-index:6;cursor:pointer}
+.sheet{position:fixed;inset:0;background:#0008;z-index:20;display:flex;align-items:flex-end;backdrop-filter:blur(6px)}
+.sheet[hidden]{display:none}
+.sheet>div{background:var(--card);width:100%;max-width:560px;margin:auto;border-radius:30px 30px 0 0;padding:22px 18px calc(22px + env(safe-area-inset-bottom,0px));max-height:90%;overflow:auto}.an{animation:up .25s}
+@keyframes up{from{transform:translateY(40px);opacity:0}}
+.sw{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--bd)}
+.pill{background:var(--bg);color:var(--tx);border-radius:20px;padding:4px 12px;font-size:12px;font-weight:600;display:inline-block}
+.grab{width:40px;height:5px;border-radius:5px;background:var(--bd);margin:-10px auto 16px}.stl{font-size:20px;font-weight:700;margin:0 4px 12px}
+.ttl{font-size:20px;font-weight:600;padding:16px}.fl{font-size:13px;color:var(--mu);margin:16px 4px 6px;font-weight:600}
+.days{display:flex;gap:5px}.dd{flex:1;text-align:center;padding:13px 0;border-radius:14px;background:var(--bg);font-size:12px;cursor:pointer;font-weight:500}.dd.on{background:var(--ac);color:var(--onac)}
+.acts{display:flex;gap:8px;margin-top:20px}.acts .p{flex:1;padding:15px;font-size:16px;border-radius:18px}.two{display:flex;gap:8px}
+.tg{width:50px;height:30px;border-radius:20px;background:var(--bd);position:relative;cursor:pointer;transition:.2s;flex:none}
+.tg:after{content:"";position:absolute;top:3px;inset-inline-start:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:.2s;box-shadow:0 1px 4px #0004}
+.tg.on{background:var(--acx)}.tg.on:after{inset-inline-start:23px;background:#121212}
+.sw:last-child{border:0}
+.mrow{display:flex;justify-content:space-between;margin:2px 0 16px}
+.mo{display:flex;flex-direction:column;align-items:center;gap:7px;background:none;border:0;color:var(--mu);font:inherit;font-size:11px;cursor:pointer;padding:0}
+.mo i{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 16%,transparent);color:var(--c);transition:.2s}
+.mo.on i{background:var(--c);color:#121212;transform:scale(1.1);box-shadow:0 6px 18px color-mix(in srgb,var(--c) 45%,transparent)}
+.mo.on{color:var(--tx);font-weight:600}
+.note{margin:0;border-radius:18px;padding:15px 16px}
+.st{direction:ltr;background:var(--bg);border-radius:20px;padding:5px;gap:6px}
+.st button{width:54px;height:50px;padding:0;font-size:28px;border-radius:15px;background:var(--card);color:var(--tx);line-height:1}
+.st .pl{background:var(--acx);color:#121212}
+.st b{flex:1;text-align:center;font-size:20px;font-weight:700;line-height:1.15}.st b em{font-style:normal;opacity:.4;font-size:15px}.st b small{display:block;font-size:11px;color:var(--mu);font-weight:500}
+.row.m{flex-wrap:wrap}.row.m .st{order:5;flex:1 0 100%}
+.dts{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.dts span{background:var(--card);border-radius:14px;padding:6px 12px;font-size:13px;font-weight:600}.dts span:first-child:before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--acx);margin-inline-end:7px}
+.ch{display:flex;align-items:center;gap:12px}.ci{width:46px;height:46px;border-radius:16px;background:var(--acx);color:#121212;display:grid;place-items:center;flex:none}
+.ct{flex:1;display:flex;flex-direction:column;gap:2px}.ct b{font-size:16px}.ct span{font-size:12px;color:var(--mu)}
+.cn{font-size:28px;font-weight:700;direction:ltr;letter-spacing:-.02em}.cn em{font-style:normal;font-size:14px;opacity:.4;font-weight:500}
+.seg5{display:flex;gap:6px;margin-top:16px}.seg5 i{flex:1;height:8px;border-radius:8px;background:var(--bd);overflow:hidden}.seg5 u{display:block;height:100%;background:var(--acx);border-radius:8px;transition:width .4s}
+.chal.win{background:var(--hbg);color:var(--htx)}.chal.win .ct span{color:inherit;opacity:.7}.chal.win .seg5 i{background:#8883}.chal.win .seg5 u{background:var(--hac)}.chal.win .ci{background:var(--hac);color:var(--hbg)}
+.seg7{display:flex;gap:6px;margin-top:16px}.sg{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}.sg i{width:100%;height:8px;border-radius:8px;background:var(--bd);overflow:hidden}.sg u{display:block;height:100%;background:var(--acx);border-radius:8px;transition:width .4s}.sg span{font-size:10px;color:var(--mu)}.sg.now span{color:inherit;font-weight:700}
+.chal.win .sg i{background:#8883}.chal.win .sg u{background:var(--hac)}
+.seg.rv button{font-size:14px;padding:12px 2px}
+.st .pl.dis{background:var(--card);color:var(--mu);opacity:.45}
+.memo{cursor:pointer}.memo b{display:block;font-size:16px;margin-bottom:4px}.memo .pill{float:inline-end;font-size:11px}
+.mb{color:var(--mu);font-size:14px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;white-space:pre-wrap}
+.memo small{display:block;margin-top:8px;color:var(--mu);font-size:11px}
+.mt{min-height:260px;line-height:1.7}
+.mrw{display:flex;align-items:center;gap:10px;margin-top:12px}.mrw span{width:46px;font-size:13px;color:var(--mu)}.mrw .bar{flex:1;margin:0}.mrw b{width:24px;text-align:end;font-size:14px}.top2{display:flex;justify-content:space-between;align-items:center;gap:8px}.top2 b{font-size:14px}
+.top2 .pill{flex:none}
+nav{padding:5px}nav button{font-size:10px;padding:8px 0}
+.evd{width:48px;height:54px;border-radius:15px;background:color-mix(in srgb,var(--c) 18%,transparent);color:var(--c);display:flex;flex-direction:column;align-items:center;justify-content:center;flex:none;line-height:1.15}.evd b{font-size:20px}.evd span{font-size:10px;font-weight:600}
+.ev{cursor:pointer}.ev .pill{flex:none;margin:0}.pill.hot{background:var(--acx);color:#121212}
+input.dt{direction:ltr;text-align:start;min-height:50px}.two input{min-width:0}
+.en{font-size:13px;color:var(--tx);opacity:.75;font-weight:400;margin-top:6px;line-height:1.5;white-space:pre-wrap;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+#toast{position:fixed;inset-inline:24px;bottom:112px;background:var(--tx);color:var(--bg);padding:12px 16px;border-radius:16px;text-align:center;font-size:14px;z-index:40;opacity:0;pointer-events:none;transition:.25s;transform:translateY(8px)}#toast.show{opacity:1;transform:none}
+.lnk{background:none;border:0;color:var(--ac);font:inherit;font-weight:600;padding:12px 4px;cursor:pointer;display:block}
+.evh{margin-bottom:10px;cursor:pointer}.evh .ring{width:84px;height:84px}.evh .ring:before{inset:7px}.evh .ring b{font-size:22px}.evt{min-width:0;flex:1}.big2{font-size:22px;font-weight:700;line-height:1.25;margin:2px 0}
+.tl{position:relative;padding-inline-start:22px}.tl:before{content:"";position:absolute;inset-inline-start:7px;top:8px;bottom:8px;width:2px;background:var(--bd);border-radius:2px}
+.tl .row{position:relative}.tl .row:before{content:"";position:absolute;inset-inline-start:-23px;top:50%;width:12px;height:12px;border-radius:50%;background:var(--c);border:3px solid var(--bg);transform:translateY(-50%);box-sizing:content-box}
+.pre{cursor:pointer}.pre .sub{margin-top:4px}
+.cal-h{display:flex;align-items:center;justify-content:space-between;margin:8px 4px 14px;text-align:center}
+.cv{width:42px;height:42px;border-radius:14px;border:0;background:var(--card);color:var(--tx);display:grid;place-items:center;cursor:pointer}
+html[dir=rtl] .cv svg{transform:scaleX(-1)}
+.cg{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.cg>span{text-align:center;font-size:11px;color:var(--mu);padding:6px 0}
+.cd{aspect-ratio:1/1.1;border:0;background:var(--card);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;font:inherit;color:var(--tx);cursor:pointer;padding:0}
+.cd b{font-size:15px;font-weight:600}.cd small{font-size:9px;color:var(--mu)}.cd span{display:flex;gap:2px;height:5px}.cd u{width:5px;height:5px;border-radius:50%}
+.cd.td{box-shadow:inset 0 0 0 2px var(--acx)}.cd.sl{background:var(--ac);color:var(--onac)}.cd.sl small{color:inherit;opacity:.7}
+.cd.hv:not(.sl){background:color-mix(in srgb,var(--c) 26%,var(--card))}.cd.hv b{font-weight:700}
+.cd span{gap:3px;height:7px}.cd u{width:7px;height:7px}
+.cd{position:relative}
+.cd.sp:after{content:"";position:absolute;top:5px;inset-inline-end:5px;width:10px;height:10px;background:#ffc23f;clip-path:polygon(50% 0,62% 36%,100% 38%,70% 60%,80% 100%,50% 76%,20% 100%,30% 60%,0 38%,38% 36%)}
+.cd small.h1{color:#e6a817;font-weight:700}
+.spl{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
+.spc{display:inline-flex;align-items:center;gap:6px;background:color-mix(in srgb,#ffc23f 18%,var(--card));border-radius:14px;padding:8px 12px;font-size:13px;font-weight:600;cursor:pointer}
+.spc i{width:11px;height:11px;background:#ffc23f;clip-path:polygon(50% 0,62% 36%,100% 38%,70% 60%,80% 100%,50% 76%,20% 100%,30% 60%,0 38%,38% 36%)}
+.cd{aspect-ratio:1/1.22;gap:3px}
+.cd.hv:not(.sl){background:var(--card)}
+.cd.sp:after{content:none}
+.cd small{font-size:9px;line-height:1}
+.cd span{width:60%;height:4px;gap:2px;margin-top:1px}
+.cd u{flex:1;width:auto;height:4px;border-radius:4px}
+.cd.sp b{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#ffd45a,#ff9f43);color:#121212;font-size:14px;box-shadow:0 3px 10px rgba(255,159,67,.35)}
+.spc{gap:8px;padding:6px;padding-inline-end:14px;background:var(--card)}
+.spc i{display:none}
+.spc em{font-style:normal;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#ffd45a,#ff9f43);color:#121212;font-size:12px;font-weight:700;flex:none}
+.cg{gap:4px}
+.cd{background:none;aspect-ratio:auto;padding:4px 0;gap:1px;border-radius:16px}
+.cd.hv:not(.sl){background:none}
+.cd b{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:15px;font-weight:600;box-shadow:none}
+.cd small{font-size:9px;line-height:1;color:var(--mu)}
+.cd span{width:auto;height:5px;gap:3px;margin-top:3px}
+.cd u{flex:none;width:5px;height:5px;border-radius:50%}
+.cd.td{box-shadow:none}.cd.td b{background:var(--acx);color:#121212}
+.cd.sp b{background:var(--c);color:#121212;box-shadow:none}
+.cd.sl{background:var(--card);color:var(--tx)}.cd.sl small{color:var(--mu);opacity:1}
+.cd.sl b{box-shadow:inset 0 0 0 2px var(--tx)}
+.spc em{background:var(--c);color:#121212}
+.cd.sp b{background:color-mix(in srgb,var(--acx) 26%,transparent);color:var(--tx);box-shadow:inset 0 0 0 2px var(--acx)}
+.cd.td.sp b{background:var(--acx);color:#121212;box-shadow:none}
+.cd.sl.sp b{box-shadow:inset 0 0 0 2px var(--tx)}
+.spc em{background:color-mix(in srgb,var(--acx) 26%,transparent);box-shadow:inset 0 0 0 2px var(--acx);color:var(--tx)}
+:root[data-yt="dark"]{--bg:#0a0a0a;--card:#161616;--tx:#f4f4f0;--mu:#8f8f8a;--bd:#262626;--ac:#c8f23d;--onac:#121212;--hbg:#c8f23d;--htx:#121212;--hac:#121212;color-scheme:dark}
+:root[data-yt="light"]{--bg:#f4f4f0;--card:#fff;--tx:#121212;--mu:#8a8a85;--bd:#ebebe6;--ac:#121212;--onac:#fff;--hbg:#121212;--htx:#fff;--hac:#c8f23d;color-scheme:light}
+.dy.ft{opacity:.35}
+.back{cursor:pointer;text-align:center;font-weight:600;background:var(--acx);color:#121212;padding:12px}
+.prow{display:flex;gap:6px;margin-top:14px}
+.pq{flex:1;min-width:0;background:var(--bg);border:0;border-radius:18px;padding:10px 2px 9px;display:flex;flex-direction:column;align-items:center;gap:5px;font:inherit;color:var(--tx);cursor:pointer}
+.pq span{font-size:12px;font-weight:600}.pq b{font-size:10px;font-weight:500;color:var(--mu);white-space:nowrap}
+.pq u{width:26px;height:26px;border-radius:50%;border:2px solid var(--bd);display:grid;place-items:center;color:#121212;text-decoration:none}
+.pq.d u{background:var(--acx);border-color:var(--acx)}.pq.nx{box-shadow:inset 0 0 0 2px var(--acx)}
+.tp{background:var(--bg)}.tp .chips{margin:10px 0 0}
+.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:4px}
+.tri div{background:var(--bg);border-radius:18px;padding:14px 6px;text-align:center}.tri b{font-size:26px;display:block;letter-spacing:-.02em}.tri span{font-size:11px;color:var(--mu)}
+.hm{display:grid;grid-template-columns:repeat(12,1fr);grid-template-rows:repeat(7,auto);grid-auto-flow:column;gap:4px}
+.hx{display:block;aspect-ratio:1;border-radius:5px;background:var(--bd)}.hx.f{background:var(--acx)}.hx.h{background:color-mix(in srgb,var(--acx) 45%,var(--bd))}.hx.o{background:var(--bg)}.hx.x{background:transparent}
+.hm{grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:repeat(7,18px);gap:4px}.hx{aspect-ratio:auto;border-radius:5px}
+.empty{text-align:center;color:var(--mu);padding:22px}
+</style>
+</head>
+<body>
+<main id="main"></main>
+<button class="fab" id="fab" onclick="openItem()">+</button>
+<nav id="nav"></nav>
+<div class="sheet" id="sheet" hidden></div>
+<script>
+const K='yawmi-v1',$=s=>document.querySelector(s);
+let S={items:[],goals:[],logs:{},notes:{},reviews:{},settings:{}};
+try{const r=localStorage.getItem(K);if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
+const hadIs='islamic' in S.settings;S.settings=Object.assign({hijri:true,mood:true,hard:false,grace:true,pray:false,islamic:false,theme:'auto'},S.settings);if(!hadIs&&S.settings.pray)S.settings.islamic=true;S.memos=S.memos||[];S.pr=S.pr||{};S.events=S.events||[];S.events.forEach(e=>{if(e.pre&&e.pre!=='p-fit'&&e.pre!=='p-adh'&&e.k==='holiday')e.k='occ'});let LANG=S.settings.lang==='en'?'en':'ar';
+if(!S.settings.ytv){S.settings.theme='auto';S.settings.ytv=1}
+const curTheme=()=>{const m=getComputedStyle(document.body).backgroundColor.match(/\d+/g);return m&&(+m[0]*.299+ +m[1]*.587+ +m[2]*.114)<128?'dark':'light'};
+function applyTheme(){const t=S.settings.theme;if(t==='light'||t==='dark')document.documentElement.setAttribute('data-yt',t);else document.documentElement.removeAttribute('data-yt')}
+applyTheme();
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}};
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const pad=n=>String(n).padStart(2,'0'),dk=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const addD=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x},wk=d=>addD(d,-d.getDay()),pd=s=>new Date(s+'T00:00:00');
+const uid=()=>Math.random().toString(36).slice(2,9);
+const PN={once:'مرة واحدة',day:'يومي',week:'أسبوعي',month:'شهري',year:'سنوي'},DN=['أحد','إثنين','ثلاثاء','أربعاء','خميس','جمعة','سبت'];
+const fmt=(d,cal,o)=>new Intl.DateTimeFormat((LANG==='en'?'en':'ar-SA')+'-u-ca-'+cal,o).format(d);
+function inP(p,s,ref){const d=pd(s);if(p==='day')return dk(ref)===s;if(p==='week')return dk(wk(d))===dk(wk(ref));if(p==='month')return d.getFullYear()===ref.getFullYear()&&d.getMonth()===ref.getMonth();return d.getFullYear()===ref.getFullYear()}
+const logs=id=>S.logs[id]||(S.logs[id]={}),val=(id,s)=>(S.logs[id]||{})[s]||0;
+const isDone=(it,s)=>it.target?val(it.id,s)>=it.target:val(it.id,s)>0;
+const prog=(it,s)=>it.target?Math.min(1,val(it.id,s)/it.target):it.type==='task'?Math.min(1,val(it.id,s)/(it.times||1)):(val(it.id,s)>0?1:0);
+const pCount=(it,ref)=>Object.keys(S.logs[it.id]||{}).reduce((q,s)=>q+((it.period==='once'||inP(it.period,s,ref))?S.logs[it.id][s]:0),0);
+const pDone=(it,ref)=>pCount(it,ref)>=(it.times||1);
+const sched=(it,d)=>{if(it.every>1){const a=pd(it.start||it.created),b=new Date(d.getFullYear(),d.getMonth(),d.getDate()),k=Math.round((b-a)/864e5);return k>=0&&k%it.every===0}return !(it.days&&it.days.length)||it.days.includes(d.getDay())};
+function streak(it){let n=0,last=-99,d=new Date(),i=isDone(it,dk(d))?0:1;
+for(;i<400;i++){const day=addD(d,-i),s=dk(day);if(s<it.created)break;if(!sched(it,day))continue;
+if(isDone(it,s))n++;else if(S.settings.grace&&(last===-99||i-last>=7))last=i;else break}return n}
+function pts(){let p=0;S.items.forEach(it=>Object.keys(S.logs[it.id]||{}).forEach(s=>{if(isDone(it,s))p+=it.type==='habit'?10:5}));return p}
+function weekCount(){const n=new Date();return [0,1,2,3,4,5,6].map(i=>{const d=addD(wk(n),i),ds=dk(d),L=S.items.filter(it=>!it.paused&&ds>=it.created&&(it.type==='habit'?sched(it,d):it.period==='day'));const pe=S.settings.pray&&S.city,pn=pe?(S.pr[ds]||[]).filter(Boolean).length:0,tt=L.length+(pe?5:0);return tt?(L.reduce((q,it)=>q+prog(it,ds),0)+pn)/tt:0})}
+let tab='today',rv='week',E=null;
+function render(){
+$('#nav').innerHTML=[['today','<circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/>','اليوم'],['ev','<rect x="4" y="5" width="16" height="16" rx="3"/><path d="M8 3v4M16 3v4M4 10h16"/>','الأحداث'],['goals','<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/>','الأهداف'],['review','<path d="M5 20V11M12 20V4M19 20v-6"/>','المراجعة'],['memo','<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/>','ملاحظات'],['set','<path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/>','الإعدادات']].map(t=>`<button class="${tab===t[0]?'on':''}" onclick="tab='${t[0]}';vd=null;render();scrollTo(0,0)"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${t[1]}</svg><span>${t[2]}</span></button>`).join('');
+$('#fab').style.display=tab==='set'||tab==='review'?'none':'block';
+$('#fab').onclick=()=>tab==='goals'?openGoal():tab==='memo'?openMemo():tab==='ev'?openEv():openItem();
+try{({today:rToday,ev:rEv,goals:rGoals,review:rReview,memo:rMemo,set:rSet})[tab]()}catch(err){$('#main').innerHTML='<div class="card"><b>حدث خطأ في هذه الشاشة</b><div class="sub" style="direction:ltr;margin-top:8px;word-break:break-word">'+esc(String(err&&err.message||err))+'</div></div>'}const T={goals:'الأهداف',review:'المراجعة',memo:'الملاحظات',ev:'الأحداث',set:'الإعدادات'};if(T[tab])$('#main').insertAdjacentHTML('afterbegin','<div class="pt">'+T[tab]+'</div>');}
+function rowH(it,ref){const s=dk(ref),h=it.type==='habit',done=h?isDone(it,s):pDone(it,ref),g=S.goals.find(g=>g.id===it.goal),sb=[];
+if(h){const k=streak(it);if(k)sb.push('🔥 '+k);if(it.every>1)sb.push(it.every===2?'يوم ويوم لا':'كل '+it.every+' أيام')}if(g)sb.push('◎ '+esc(g.title));
+let c='';if(h&&it.target){const st=Math.max(1,Math.round(it.target/10));c=`<div class="st"><button class="mn" onclick="step('${it.id}',-${st})">−</button><b>${val(it.id,s)}<em>/${it.target}</em><small>${esc(it.unit||'')}</small></b><button class="pl${val(it.id,s)>=it.target?' dis':''}" onclick="step('${it.id}',${st})">+</button></div>`}else if(!h&&(it.times||1)>1){const pc=pCount(it,ref);c=`<div class="st"><button class="mn" onclick="tstep('${it.id}',-1)">−</button><b>${pc}<em>/${it.times}</em><small>مرة</small></b><button class="pl${pc>=it.times?' dis':''}" onclick="tstep('${it.id}',1)">+</button></div>`}
+const hue=[...it.id].reduce((a,c)=>a+c.charCodeAt(0)*37,0)%360;
+return `<div class="row ${done?'done':''} ${c?'m':''}"><div class="tile" style="--h:${hue}" onclick="${h?'openDet':'openItem'}('${it.id}')">${it.star?'★':esc((it.name.trim()[0])||'•')}</div><div class="nm" onclick="openItem('${it.id}')">${esc(it.name)}<small>${sb.join(' · ')}</small></div>${c}<button class="chk" onclick="tog('${it.id}')">${done?'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>':''}</button></div>`}
+function rToday(){const n=cvd(),s=dk(n),hd=S.settings.hard,f=it=>!hd||it.star,H=S.settings.hijri,pr=H?'islamic-umalqura':'gregory',sc=H?'gregory':'islamic-umalqura';
+const hab=S.items.filter(i=>i.type==='habit'&&!i.paused&&s>=i.created&&sched(i,n)&&f(i)),tk=p=>S.items.filter(i=>i.type==='task'&&!i.paused&&s>=i.created&&i.period===p&&f(i)&&(p!=='once'||!pDone(i,n)||val(i.id,dk(n))>0));
+const all=[...hab,...tk('day'),...tk('once')],PE5=S.settings.pray&&S.city,PR=PE5?(S.pr[s]||[]).filter(Boolean).length:0,tot=all.length+(PE5?5:0),dn=all.filter(i=>i.type==='habit'?isDone(i,s):pDone(i,n)).length+PR,pc=tot?Math.round((all.reduce((q,i)=>q+(i.type==='habit'?prog(i,s):Math.min(1,pCount(i,n)/(i.times||1))),0)+PR)/tot*100):0;
+const p=pts(),lv=Math.floor(p/150)+1,wd=weekCount(),wc=wd.filter(x=>x>=.999).length;
+let strip='<div class="strip">';for(let i=0;i<7;i++){const d=addD(wk(n),i),ds=dk(d),hh=S.items.filter(x=>x.type==='habit'&&!x.paused&&ds>=x.created&&sched(x,d)),pe=S.settings.pray&&S.city,pn=pe?(S.pr[ds]||[]).filter(Boolean).length:0,tt=hh.length+(pe?5:0),r=tt?(hh.reduce((q,x)=>q+prog(x,ds),0)+pn)/tt:0;strip+=`<div class="dy ${ds===s?'now':''} ${ds>dk(new Date())?'ft':''}" onclick="pickD('${ds}')"><span>${DN[i]}</span><b>${fmt(d,pr,{day:'numeric'})}</b><i class="${r>=1?'f':r>0?'h':''}"></i></div>`}strip+='</div>';
+let h=`<div class="head"><div><div class="date">${fmt(n,'gregory',{weekday:'long'})}</div><div class="dts"><span>${fmt(n,pr,{day:'numeric',month:'long',year:'numeric'})}</span><span>${fmt(n,sc,{day:'numeric',month:'long',year:'numeric'})}</span></div></div><button class="btn ${hd?'p':''}" onclick="S.settings.hard=!S.settings.hard;save();render()">${hd?'يوم صعب ✓':'يوم صعب'}</button></div>${strip}${vd?`<div class="card back" onclick="pickD('${dk(new Date())}')">تعدّل يوم سابق · العودة لليوم</div>`:''}
+<div class="bento"><div class="hc"><div class="ring" style="--p:${pc}"><b>${pc}%</b></div><div><div class="big">${dn}<span>/${tot}</span></div><div class="sub">منجز اليوم</div></div></div><div class="card mini"><div class="sub">المستوى</div><div class="big">${lv}</div><div class="sub">${p} نقطة</div></div></div>
+<div class="card chal ${wc>=7?'win':''}"><div class="ch"><div class="ci"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v5a4 4 0 01-8 0V4z"/><path d="M8 6H5v1a3 3 0 003 3M16 6h3v1a3 3 0 01-3 3M12 13v4M9 20h6"/></svg></div><div class="ct"><b>تحدي الأسبوع</b><span>${wc>=7?'أكملت كل أيام الأسبوع، ممتاز!':'أكمل كل عاداتك ومهامك كل يوم · باقي '+(7-wc)+' أيام'}</span></div><div class="cn">${wc}<em>/7</em></div></div><div class="seg7">${wd.map((c,i)=>`<div class="sg ${i===n.getDay()?'now':''}"><i><u style="width:${Math.round(c*100)}%"></u></i><span>${DN[i]}</span></div>`).join('')}</div></div>`;
+if(hd)h+=`<div class="sub" style="margin:0 4px 6px">وضع يوم صعب: الأساسيات فقط (★). خذها بهدوء.</div>`;
+h+=prayCard(n,s);
+{const up=evUp(7).slice(0,4);if(up.length)h+='<h2>أحداث قادمة</h2>'+up.map(x=>evCard(x.e)).join('')}
+h+=habGroups(hab,n);
+if(tk('once').length)h+='<h2>مهام</h2>'+tk('once').map(i=>rowH(i,n)).join('');
+if(tk('day').length)h+=`<h2>مهام اليوم</h2>`+tk('day').map(i=>rowH(i,n)).join('');
+[['week','هذا الأسبوع'],['month','هذا الشهر'],['year','هذه السنة']].forEach(([p,l])=>{if(tk(p).length)h+=`<h2>${l}</h2>`+tk(p).map(i=>rowH(i,n)).join('')});
+if(S.settings.mood){const nt=S.notes[s]||{},M=[['سيئ','#ff6b6b','M8 17q4-4 8 0'],['مو زين','#ff9f43','M8.5 16.5q3.5-2.5 7 0'],['عادي','#ffd23f','M8.5 16h7'],['زين','#7bd88f','M8.5 15q3.5 2.5 7 0'],['ممتاز','#2ec4a6','M7.5 14q4.5 5 9 0']];
+h+=`<h2>كيف يومك؟</h2><div class="card"><div class="mrow">${M.map((m,i)=>`<button class="mo ${nt.m===i+1?'on':''}" style="--c:${m[1]}" onclick="setMood(${i+1})"><i><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="8.5" cy="9.5" r=".6"/><circle cx="15.5" cy="9.5" r=".6"/><path d="${m[2]}"/></svg></i>${m[0]}</button>`).join('')}</div><input class="note" placeholder="اكتب سطر عن يومك..." value="${esc(nt.t||'')}" onchange="setNote(this.value)">${(()=>{const mm=[0,0,0,0,0];Object.keys(S.notes).forEach(k=>{if(inP('month',k,n)&&S.notes[k].m)mm[S.notes[k].m-1]++});const x=Math.max(...mm);return x?`<div class="sub" style="margin:12px 4px 0">الأكثر اختياراً هذا الشهر: <b>${MD[mm.indexOf(x)][0]}</b> (${x})</div>`:''})()}</div>`}
+$('#main').innerHTML=h}
+function tog(id){const it=S.items.find(i=>i.id===id),n=cvd(),s=dk(n),L=logs(id);
+if(it.type==='habit'){L[s]=isDone(it,s)?0:(it.target||1)}else if(pDone(it,n)){Object.keys(L).forEach(d=>{if(it.period==='once'||inP(it.period,d,n))delete L[d]})}else L[s]=(L[s]||0)+((it.times||1)-pCount(it,n));save();render()}
+function tstep(id,d){const it=S.items.find(i=>i.id===id),n=cvd(),s=dk(n),L=logs(id),t=it.times||1,c=pCount(it,n);
+if(d>0){if(c<t)L[s]=(L[s]||0)+1}else if(c>0){const ks=Object.keys(L).filter(k=>L[k]>0&&(it.period==='once'||inP(it.period,k,n))).sort(),k=ks[ks.length-1];L[k]--;if(L[k]<=0)delete L[k]}
+save();render()}
+function step(id,d){const it=S.items.find(i=>i.id===id),mx=it.target||1e9,L=logs(id),s=dk(cvd()),cur=Math.min(val(id,s),mx);L[s]=Math.max(0,Math.min(mx,cur+d));save();render()}
+function setMood(m){const s=dk(cvd());S.notes[s]=Object.assign(S.notes[s]||{},{m});save();render()}
+function setNote(t){const s=dk(cvd());S.notes[s]=Object.assign(S.notes[s]||{},{t});save()}
+function gProg(g){const n=new Date();let c=0;S.items.filter(i=>i.goal===g.id).forEach(it=>Object.keys(S.logs[it.id]||{}).forEach(s=>{if(inP(g.period,s,n)&&isDone(it,s))c++}));return c}
+function rGoals(){let h='';['year','month','week'].forEach(p=>{const gs=S.goals.filter(g=>g.period===p);if(!gs.length)return;h+=`<h2>أهداف ${PN[p]}ة</h2>`.replace('يةة','ية').replace('شهريةة','شهرية');
+gs.forEach(g=>{const c=gProg(g),pc=Math.min(100,Math.round(c/g.target*100));h+=`<div class="card" onclick="openGoal('${g.id}')"><div class="top"><b>${esc(g.title)}</b><span class="pill">${c}/${g.target}</span></div><div class="bar"><i style="width:${pc}%"></i></div><div class="sub" style="margin-top:6px">${S.items.filter(i=>i.goal===g.id).length} عناصر مرتبطة</div></div>`})});
+if(!h)h='<div class="empty">لا أهداف بعد. اضغط + لإضافة هدف، ثم اربط به عاداتك ومهامك من شاشة الإضافة.</div>';
+$('#main').innerHTML=h}
+const QS=['وش أكثر شي فخور فيه؟','وش اللي عطلك وكيف تتجاوزه؟','وش الشي الواحد اللي لو تغير يحسن أسبوعك الجاي؟','على وش تشكر نفسك؟','وش تبي تتركه أو تخففه؟'];
+function rReview(){const n=new Date(),st=rv==='day'?new Date(n.getFullYear(),n.getMonth(),n.getDate()):rv==='week'?wk(n):rv==='year'?new Date(n.getFullYear(),0,1):new Date(n.getFullYear(),n.getMonth(),1),days=[];
+for(let d=new Date(st);dk(d)<=dk(n);d=addD(d,1))days.push(new Date(d));
+const hs=S.items.filter(i=>i.type==='habit'&&!i.paused);let tp=0,td=0;
+const st2=hs.map(it=>{let a=0,b=0;days.forEach(d=>{if(dk(d)>=it.created&&sched(it,d)){a++;b+=prog(it,dk(d))}});tp+=a;td+=b;return{it,a,b,r:a?Math.round(b/a*100):null}}).filter(x=>x.a);
+const tasks=S.items.filter(i=>i.type==='task'&&!i.paused);let tdn=0;tasks.forEach(it=>Object.keys(S.logs[it.id]||{}).forEach(s=>{if(s>=dk(st)&&s<=dk(n)&&S.logs[it.id][s]>0)tdn++}));
+const late=tasks.filter(i=>i.period!=='day'&&i.period!=='year'&&i.period!=='once'&&!pDone(i,n));
+const ms=days.map(d=>{const nt=S.notes[dk(d)];if(!nt||!nt.m)return null;const hh=hs.filter(i=>dk(d)>=i.created&&sched(i,d));if(!hh.length)return null;return{m:nt.m,r:hh.reduce((q,i)=>q+prog(i,dk(d)),0)/hh.length}}).filter(Boolean);
+const hi=ms.filter(x=>x.r>=.8),lo=ms.filter(x=>x.r<.8),av=a=>a.reduce((s,x)=>s+x.m,0)/a.length;
+const key=rv+'-'+dk(st),q=QS[Math.floor(st.getTime()/(rv==='day'?864e5:6048e5))%QS.length];
+let h=`<div class="seg rv"><button class="${rv==='day'?'on':''}" onclick="rv='day';render()">اليوم</button><button class="${rv==='week'?'on':''}" onclick="rv='week';render()">هذا الأسبوع</button><button class="${rv==='month'?'on':''}" onclick="rv='month';render()">هذا الشهر</button><button class="${rv==='year'?'on':''}" onclick="rv='year';render()">هذه السنة</button></div>
+<div class="card"><div class="top"><div><div class="date">${tp?Math.round(td/tp*100):0}%</div><div class="sub">نسبة الالتزام بالعادات</div></div><div style="text-align:end"><b>${tdn}</b><div class="sub">مهمة منجزة</div></div></div><div class="bar"><i style="width:${tp?Math.round(td/tp*100):0}%"></i></div></div>`;
+if(st2.length)h+='<h2>العادات</h2>'+st2.sort((a,b)=>b.r-a.r).map(x=>`<div class="card"><div class="top2"><span>${esc(x.it.name)}</span><span class="pill">${+x.b.toFixed(1)}/${x.a}</span></div><div class="bar"><i style="width:${x.r}%;${x.r<50?'background:var(--wn)':''}"></i></div></div>`).join('');
+{const pk=(p,d)=>p==='once'?'o':p==='day'?dk(d):p==='week'?dk(wk(d)):p==='month'?d.getFullYear()+'-'+d.getMonth():String(d.getFullYear());
+const ts=tasks.map(it=>{const all=new Set(),dn=new Set(),sm={};days.forEach(d=>{if(dk(d)>=it.created)all.add(pk(it.period,d))});Object.keys(S.logs[it.id]||{}).forEach(s=>{if(s>=dk(st)&&s<=dk(n)&&S.logs[it.id][s]>0){const k=pk(it.period,pd(s));sm[k]=(sm[k]||0)+S.logs[it.id][s];if(sm[k]>=(it.times||1))dn.add(k)}});const a=all.size,b=[...dn].filter(k=>all.has(k)).length;return{it,a,b,r:a?Math.round(b/a*100):0}}).filter(x=>x.a&&!(x.it.period==='once'&&x.b===0&&pDone(x.it,n)));
+if(ts.length)h+='<h2>المهام</h2>'+ts.sort((x,y)=>y.r-x.r).map(x=>`<div class="card"><div class="top2"><span>${esc(x.it.name)} <small class="sub">· ${PN[x.it.period]}</small></span><span class="pill">${x.b}/${x.a}</span></div><div class="bar"><i style="width:${x.r}%;${x.r<50?'background:var(--wn)':''}"></i></div></div>`).join('')}
+const slow=st2.filter(x=>x.r<50);if(slow.length||late.length)h+=`<h2>اللي تأخر</h2><div class="card">${slow.map(x=>'• '+esc(x.it.name)+' ('+x.r+'%)').join('<br>')}${slow.length&&late.length?'<br>':''}${late.map(x=>'• '+esc(x.name)+' ('+PN[x.period]+')').join('<br>')}</div>`;
+if(S.settings.pray){const fr=Object.keys(S.pr).filter(k=>S.pr[k].some(Boolean)).sort()[0];if(fr){const dd=days.filter(d=>dk(d)>=fr).length,pc=[0,0,0,0,0];days.forEach(d=>{const a=S.pr[dk(d)];if(a)a.forEach((v,i)=>{if(v)pc[i]++})});const tot=pc.reduce((x,y)=>x+y,0);
+h+=`<h2>الصلوات</h2><div class="card"><div class="top2"><span class="sub">الالتزام بالصلوات</span><b>${dd?Math.round(tot/(dd*5)*100):0}%</b></div>${[0,1,2,3,4].map(i=>`<div class="mrw"><span>${PRN[i]}</span><div class="bar"><i style="width:${dd?Math.round(pc[i]/dd*100):0}%"></i></div><b>${pc[i]}</b></div>`).join('')}</div>`}}
+{const mc=[0,0,0,0,0];days.forEach(d=>{const nt=S.notes[dk(d)];if(nt&&nt.m)mc[nt.m-1]++});const mt=mc.reduce((a,b)=>a+b,0),mx=Math.max(...mc);
+if(mt)h+=`<h2>مزاجك</h2><div class="card"><div class="top2"><span class="sub">الأكثر اختياراً</span><b>${mc.map((c,i)=>c===mx?MD[i][0]:'').filter(Boolean).join(' و ')} · ${mx} من ${mt}</b></div>${[4,3,2,1,0].map(i=>`<div class="mrw"><span>${MD[i][0]}</span><div class="bar"><i style="width:${Math.round(mc[i]/mx*100)}%;background:${MD[i][1]}"></i></div><b>${mc[i]}</b></div>`).join('')}</div>`}
+if(hi.length>=2&&lo.length>=2)h+=`<h2>نمط لاحظناه</h2><div class="card">مزاجك في الأيام اللي التزمت فيها: ${av(hi).toFixed(1)}/5، وفي غيرها: ${av(lo).toFixed(1)}/5.</div>`;
+h+=`<h2>تأمل</h2><div class="card"><b>${q}</b><textarea placeholder="اكتب بإيجاز..." onchange="S.reviews['${key}']=this.value;save()">${esc(S.reviews[key]||'')}</textarea></div>`;
+$('#main').innerHTML=h}
+function rSet(){const sw=(k,l)=>`<div class="sw"><span>${l}</span><span class="tg ${S.settings[k]?'on':''}" onclick="S.settings['${k}']=!S.settings['${k}'];save();render()"></span></div>`;
+$('#main').innerHTML=`<div class="card"><div class="stl" style="font-size:16px;margin:0 0 4px">المظهر</div><div class="seg">${[['light','فاتح'],['dark','داكن']].map(m=>`<button class="${curTheme()===m[0]?'on':''}" onclick="S.settings.theme='${m[0]}';save();applyTheme();render()">${m[1]}</button>`).join('')}</div></div><div class="card"><div class="stl" style="font-size:16px;margin:0 0 4px">اللغة</div><div class="seg"><button data-nt class="${LANG==='ar'?'on':''}" onclick="setLang('ar')">العربية</button><button data-nt class="${LANG==='en'?'on':''}" onclick="setLang('en')">English</button></div></div><div class="card"><div class="sw" style="border:0;padding-bottom:2px"><span>الوضع الإسلامي</span><span class="tg ${S.settings.islamic?'on':''}" onclick="setIslamic(!S.settings.islamic)"></span></div><div class="sub" style="margin:0 0 6px">يفعّل الصلوات الخمس، والمناسبات الهجرية، وقوالب الأذكار والقرآن</div>${S.settings.islamic?`${sw('pray','الصلوات الخمس')}<div class="sw" onclick="openCity()" style="cursor:pointer"><span>موقع الصلاة</span><span class="sub">${S.city?esc(S.city[0]):'—'}</span></div>`:''}${sw('mood','المزاج والملاحظة اليومية')}${sw('grace','يوم سماح للـ streak (يوم كل أسبوع)')}</div>
+${S.items.some(i=>i.paused)?`<h2>العناصر الموقوفة</h2><div class="card">${S.items.filter(i=>i.paused).map(i=>`<div class="sw"><span>${esc(i.name)}</span><button class="btn" onclick="resume('${i.id}')">استئناف</button></div>`).join('')}</div>`:''}<h2>نسخة احتياطية</h2><div class="card"><div class="sub">انسخ النص واحفظه عندك، وللاستيراد الصقه هنا.</div><textarea id="bk" style="min-height:90px;direction:ltr"></textarea><div class="seg"><button onclick="bk.value=JSON.stringify(S);bk.select();try{navigator.clipboard.writeText(bk.value)}catch(e){}">نسخ البيانات</button><button onclick="imp()">استيراد</button></div></div>
+<div class="card"><button class="btn d" onclick="ask('حذف كل البيانات؟ لا يمكن التراجع.',()=>{S={items:[],goals:[],logs:{},notes:{},reviews:{},memos:[],events:[],settings:S.settings};save();render()})">حذف كل البيانات</button></div>
+<div class="sub" style="text-align:center">بياناتك محفوظة على جوالك فقط. بدون حساب وبدون اشتراك.</div>`}
+function imp(){try{const o=JSON.parse($('#bk').value);if(!o.items)throw 0;S=Object.assign(S,o);save();render()}catch(e){toast('النص غير صالح')}}
+const AR={'اليوم':'Today','الأحداث':'Events','الأهداف':'Goals','المراجعة':'Review','ملاحظات':'Notes','الملاحظات':'Notes','الإعدادات':'Settings',
+'منجز اليوم':'done today','المستوى':'Level','يوم صعب':'Hard day','يوم صعب ✓':'Hard day ✓','وضع يوم صعب: الأساسيات فقط (★). خذها بهدوء.':'Hard day mode: essentials only (★). Take it easy.',
+'العادات':'Habits','لا عادات لليوم. اضغط + للإضافة':'No habits for today. Tap + to add','مهام':'Tasks','مهام اليوم':'Today tasks','هذا الأسبوع':'This week','هذا الشهر':'This month','هذه السنة':'This year','أحداث قادمة':'Upcoming events','كيف يومك؟':'How is your day?','اكتب سطر عن يومك...':'Write a line about your day...','الأكثر اختياراً هذا الشهر:':'Most chosen this month:','الأكثر اختياراً':'Most chosen',
+'تحدي الأسبوع':'Weekly challenge','أكمل كل عاداتك ومهامك كل يوم':'Complete all your habits and tasks every day','أكملت كل أيام الأسبوع، ممتاز!':'You completed every day this week. Great!',
+'عنصر جديد':'New item','تعديل':'Edit','اسم العادة':'Habit name','اسم المهمة':'Task name','عادة':'Habit','مهمة':'Task','التكرار':'Repeat','كل يوم':'Every day','أيام محددة':'Specific days','كل عدة أيام':'Every few days','يوم ويوم لا':'Every other day','يبدأ':'Starts','من اليوم':'From today','من بكرة':'From tomorrow','قياس رقمي (اختياري)':'Numeric target (optional)','الهدف: 10':'Target: 10','الوحدة: صفحة':'Unit: pages','مرة واحدة':'Once','يومي':'Daily','أسبوعي':'Weekly','شهري':'Monthly','سنوي':'Yearly','كم مرة تحتاج تنجزها؟':'How many times to complete it?','مرة':'times','الهدف المرتبط':'Linked goal','بدون':'None','★ أساسي (يظهر في يوم صعب)':'★ Essential (shown on hard days)','حفظ':'Save','حذف':'Delete','إلغاء':'Cancel','نعم، احذف':'Yes, delete',
+'أهداف سنوية':'Yearly goals','أهداف شهرية':'Monthly goals','أهداف أسبوعية':'Weekly goals','لا أهداف بعد. اضغط + لإضافة هدف، ثم اربط به عاداتك ومهامك من شاشة الإضافة.':'No goals yet. Tap + to add a goal, then link your habits and tasks to it from the add screen.','هدف جديد':'New goal','تعديل الهدف':'Edit goal','مثال: قراءة 24 كتاب':'Example: read 24 books','المدة':'Period','المطلوب (عدد مرات إنجاز العناصر المرتبطة)':'Required (completions of linked items)',
+'نسبة الالتزام بالعادات':'Habit consistency','مهمة منجزة':'tasks done','المهام':'Tasks','اللي تأخر':'Falling behind','نمط لاحظناه':'A pattern we noticed','تأمل':'Reflect','اكتب بإيجاز...':'Write briefly...','مزاجك':'Your mood',
+'وش أكثر شي فخور فيه؟':'What are you most proud of?','وش اللي عطلك وكيف تتجاوزه؟':'What held you back and how can you get past it?','وش الشي الواحد اللي لو تغير يحسن أسبوعك الجاي؟':'What one change would improve your next week?','على وش تشكر نفسك؟':'What do you thank yourself for?','وش تبي تتركه أو تخففه؟':'What do you want to drop or reduce?',
+'المظهر':'Appearance','فاتح':'Light','داكن':'Dark','اللغة':'Language','المزاج والملاحظة اليومية':'Mood and daily note','يوم سماح للـ streak (يوم كل أسبوع)':'Streak grace day (one per week)','نسخة احتياطية':'Backup','انسخ النص واحفظه عندك، وللاستيراد الصقها هنا.':'Copy the text and keep it. To import, paste it here.','نسخ البيانات':'Copy data','استيراد':'Import','حذف كل البيانات':'Delete all data','حذف كل البيانات؟ لا يمكن التراجع.':'Delete all data? This cannot be undone.','بياناتك محفوظة على جوالك فقط. بدون حساب وبدون اشتراك.':'Your data is stored on your phone only. No account, no subscription.','النص غير صالح':'Invalid text',
+'لا أحداث بعد. اضغط + لإضافة اجتماع أو عيد أو مناسبة مهمة':'No events yet. Tap + to add a meeting, holiday or important occasion','السابقة':'Past','لاحقاً':'Later','حدث جديد':'New event','تعديل الحدث':'Edit event','اسم الحدث: اجتماع، عيد، مناسبة...':'Event name: meeting, holiday, occasion...','اجتماع':'Meeting','موعد':'Appointment','عيد':'Holiday','مناسبة':'Occasion','أخرى':'Other','التاريخ والوقت':'Date and time','سنوي ميلادي':'Yearly (Gregorian)','سنوي هجري':'Yearly (Hijri)','ملاحظة (اختياري)':'Note (optional)','اختر التاريخ':'Pick a date','حذف هذا الحدث؟':'Delete this event?','غداً':'Tomorrow','أمس':'Yesterday','بعد يومين':'In 2 days',
+'ابحث في ملاحظاتك...':'Search your notes...','مثبتة':'Pinned','بدون عنوان':'Untitled','لا ملاحظات بعد. اضغط + واكتب أي شي تبيه':'No notes yet. Tap + and write anything','العنوان':'Title','اكتب أي شي...':'Write anything...','تنحفظ تلقائياً':'Saved automatically','تم':'Done','تثبيت':'Pin','إلغاء التثبيت':'Unpin','حذف هذه الملاحظة؟':'Delete this note?',
+'سيئ':'Bad','مو زين':'Not good','عادي':'Okay','زين':'Good','ممتاز':'Great',
+'أحد':'Sun','إثنين':'Mon','ثلاثاء':'Tue','أربعاء':'Wed','خميس':'Thu','جمعة':'Fri','سبت':'Sat'};
+Object.assign(AR,{'يوم':'Day','السنة':'Year','ميلادي':'Gregorian','هجري':'Hijri','هذا اليوم غير موجود في الشهر الهجري':'This day does not exist in that Hijri month','محرم':'Muharram','صفر':'Safar','ربيع الأول':'Rabi al-Awwal','ربيع الآخر':'Rabi al-Thani','جمادى الأولى':'Jumada al-Ula','جمادى الآخرة':'Jumada al-Akhirah','رجب':'Rajab','شعبان':'Shaban','رمضان':'Ramadan','شوال':'Shawwal','ذو القعدة':'Dhu al-Qadah','ذو الحجة':'Dhu al-Hijjah','نهاية رمضان':'End of Ramadan','قائمة':'List','تقويم':'Calendar','الحدث القادم':'Next event','وش الحدث؟':'What is the event?','بكرة':'Tomorrow','الأسبوع الجاي':'Next week','تاريخ آخر':'Pick a date','المزيد من الخيارات':'More options','إخفاء الخيارات':'Hide options','النوع':'Type','الوقت':'Time','عيد ميلاد':'Birthday','أضف الأعياد والمناسبات':'Add holidays and occasions','رمضان، الفطر، عرفة، الأضحى، رأس السنة، اليوم الوطني...':'Ramadan, Eid al-Fitr, Arafah, Eid al-Adha, Hijri new year, National Day...','تمت إضافة المناسبات':'Occasions added','حسب تقويم أم القرى':'Per Umm al-Qura calendar','إخفاء السابقة':'Hide past','رأس السنة الهجرية':'Hijri New Year','يوم عاشوراء':'Day of Ashura','بداية رمضان':'Start of Ramadan','عيد الفطر':'Eid al-Fitr','يوم عرفة':'Day of Arafah','عيد الأضحى':'Eid al-Adha','اليوم الوطني':'National Day','يوم التأسيس':'Founding Day','لا أحداث في هذا اليوم':'No events on this day','اضغط + لإضافة حدث في هذا اليوم':'Tap + to add an event on this day','لا أحداث بعد. اضغط + لإضافة موعد أو مناسبة':'No events yet. Tap + to add an appointment or occasion'});
+const PE={'اليوم':'day','الأسبوع':'week','الشهر':'month','السنة':'year'};
+const RX=[[/^(\d+) نقطة$/,m=>m[1]+' pts'],[/^باقي (\d+) أيام$/,m=>m[1]+' days left'],[/^بعد (\d+) يوم$/,m=>'in '+m[1]+' days'],[/^قبل (\d+) يوم$/,m=>m[1]+' days ago'],[/^(\d+) عناصر مرتبطة$/,m=>m[1]+' linked items'],[/^كل (\d+) أيام$/,m=>'Every '+m[1]+' days'],[/^(\d+) من (\d+)$/,m=>m[1]+' of '+m[2]],[/^كم مرة في (اليوم|الأسبوع|الشهر|السنة)؟$/,m=>'How many times per '+PE[m[1]]+'?'],[/^مزاجك في الأيام اللي التزمت فيها: ([\d.]+)\/5، وفي غيرها: ([\d.]+)\/5\.$/,m=>'Your mood on days you stuck to your habits: '+m[1]+'/5, other days: '+m[2]+'/5.'],[/^• (.*) \((مرة واحدة|يومي|أسبوعي|شهري|سنوي)\)$/,m=>'• '+m[1]+' ('+AR[m[2]]+')'],[/^· (.+)$/,m=>'· '+trS(m[1])]];
+RX.push([/^السابقة \((\d+)\)$/,m=>'Past ('+m[1]+')'],[/^يكمل (\d+)$/,m=>'Turns '+m[1]]);
+function trS(s){if(AR[s]!=null)return AR[s];for(const r of RX){const m=s.match(r[0]);if(m)return r[1](m)}
+if(s.includes(' · '))return s.split(' · ').map(trS).join(' · ');
+if(s.includes(' و ')){const p=s.split(' و ');if(p.every(x=>AR[x]!=null))return p.map(x=>AR[x]).join(' and ')}
+return s}
+function trPh(e){if(e.hasAttribute&&e.hasAttribute('placeholder')){const v=e.getAttribute('placeholder'),r=trS(v);if(r!==v)e.setAttribute('placeholder',r)}}
+function trText(n){const t=n.nodeValue,s=t.trim();if(!s)return;const p=n.parentElement;if(!p||/^(SCRIPT|STYLE|TEXTAREA)$/.test(p.tagName)||p.closest('[data-nt]'))return;const r=trS(s);if(r!==s)n.nodeValue=t.replace(s,()=>r)}
+function trNode(n){if(n.nodeType===3)return trText(n);if(n.nodeType!==1)return;trPh(n);const w=document.createTreeWalker(n,5);let x;while(x=w.nextNode()){if(x.nodeType===3)trText(x);else trPh(x)}}
+new MutationObserver(ms=>{if(LANG!=='en')return;ms.forEach(m=>m.addedNodes.forEach(trNode))}).observe(document.body,{childList:true,subtree:true});
+function applyLang(){LANG=S.settings.lang==='en'?'en':'ar';document.documentElement.lang=LANG;document.documentElement.dir=LANG==='en'?'ltr':'rtl';document.title=LANG==='en'?'Yawmi':'يومي'}
+function setLang(l){S.settings.lang=l;save();applyLang();render()}
+let vd=null;const cvd=()=>vd?pd(vd):new Date();
+function pickD(ds){if(ds>dk(new Date()))return;vd=ds===dk(new Date())?null:ds;render()}
+function resume(id){const it=S.items.find(i=>i.id===id);if(it)it.paused=false;save();render()}
+function habGroups(hab,n){if(!hab.length)return '<h2>العادات</h2><div class="empty">لا عادات لليوم. اضغط + للإضافة</div>';
+if(!hab.some(i=>i.tod))return '<h2>العادات</h2>'+hab.map(i=>rowH(i,n)).join('');
+const hr=new Date().getHours(),ord=hr<12?['m','n','e']:hr<17?['n','e','m']:['e','m','n'],LB={m:'الصباح',n:'الظهيرة',e:'المساء','':'أي وقت'};
+return [...ord,''].map(k=>{const a=hab.filter(i=>(i.tod||'')===k);return a.length?`<h2>${LB[k]}</h2>`+a.map(i=>rowH(i,n)).join(''):''}).join('')}
+/* ---- habit detail ---- */
+function lstreak(it){let b=0,n=0;const t=dk(new Date());for(let d=pd(it.created);dk(d)<=t;d=addD(d,1)){if(!sched(it,d))continue;if(isDone(it,dk(d))){n++;if(n>b)b=n}else if(dk(d)!==t)n=0}return b}
+function openDet(id){const it=S.items.find(i=>i.id===id);if(!it)return;const t=new Date(),tds=dk(t);let a=0,b=0;
+for(let i=0;i<30;i++){const d=addD(t,-i),ds=dk(d);if(ds>=it.created&&sched(it,d)){a++;b+=prog(it,ds)}}
+const st=wk(addD(t,-77));let c='';for(let i=0;i<84;i++){const d=addD(st,i),ds=dk(d),sc=ds>=it.created&&ds<=tds&&sched(it,d),q=sc?prog(it,ds):-1;c+=`<i class="hx ${ds>tds?'x':q<0?'o':q>=1?'f':q>0?'h':''}"></i>`}
+const tot=Object.keys(S.logs[it.id]||{}).filter(s=>isDone(it,s)).length,f=$('#sheet').hidden;
+$('#sheet').hidden=false;$('#sheet').innerHTML=`<div class="${f?'an':''}"><div class="grab"></div><div class="stl">${esc(it.name)}</div>
+<div class="tri"><div><b>${streak(it)}</b><span>السلسلة الحالية</span></div><div><b>${lstreak(it)}</b><span>أطول سلسلة</span></div><div><b>${a?Math.round(b/a*100):0}%</b><span>آخر 30 يوم</span></div></div>
+<div class="fl">آخر 12 أسبوع</div><div class="hm">${c}</div><div class="sub" style="margin:12px 6px">إجمالي الإنجازات: ${tot}</div>
+<div class="acts"><button class="btn p" onclick="openItem('${it.id}')">تعديل</button><button class="btn" onclick="shut()">إغلاق</button></div></div>`}
+/* ---- prayers ---- */
+const PRN=['الفجر','الظهر','العصر','المغرب','العشاء'],CKS='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>';
+const CITIES=[['الرياض',24.7136,46.6753,'Asia/Riyadh'],['جدة',21.4858,39.1925,'Asia/Riyadh'],['مكة المكرمة',21.3891,39.8579,'Asia/Riyadh'],['المدينة المنورة',24.5247,39.5692,'Asia/Riyadh'],['الدمام',26.4207,50.0888,'Asia/Riyadh'],['الطائف',21.2703,40.4158,'Asia/Riyadh'],['تبوك',28.3835,36.5662,'Asia/Riyadh'],['أبها',18.2164,42.5053,'Asia/Riyadh'],['بريدة',26.326,43.975,'Asia/Riyadh'],['حائل',27.5114,41.7208,'Asia/Riyadh'],['جازان',16.8892,42.5511,'Asia/Riyadh'],['الدوحة',25.2854,51.531,'Asia/Qatar'],['الكويت',29.3759,47.9774,'Asia/Kuwait'],['المنامة',26.2285,50.586,'Asia/Bahrain'],['دبي',25.2048,55.2708,'Asia/Dubai'],['أبوظبي',24.4539,54.3773,'Asia/Dubai'],['مسقط',23.588,58.3829,'Asia/Muscat'],['عمّان',31.9454,35.9284,'Asia/Amman'],['القاهرة',30.0444,31.2357,'Africa/Cairo'],['بغداد',33.3152,44.3661,'Asia/Baghdad'],['صنعاء',15.3694,44.191,'Asia/Aden'],['الخرطوم',15.5007,32.5599,'Africa/Khartoum'],['الرباط',34.0209,-6.8416,'Africa/Casablanca'],['تونس',36.8065,10.1815,'Africa/Tunis'],['الجزائر',36.7538,3.0588,'Africa/Algiers'],['إسطنبول',41.0082,28.9784,'Europe/Istanbul'],['لندن',51.5072,-0.1276,'Europe/London'],['نيويورك',40.7128,-74.006,'America/New_York']];
+function prayT(date,c){const R=Math.PI/180,y=date.getFullYear(),m=date.getMonth(),d=date.getDate(),jd=Date.UTC(y,m,d,12)/864e5+2440587.5,D0=jd-2451545,g=(357.529+.98560028*D0)%360,q=(280.459+.98564736*D0)%360,L=(q+1.915*Math.sin(g*R)+.02*Math.sin(2*g*R))%360,e=23.439-3.6e-7*D0,RA=((Math.atan2(Math.cos(e*R)*Math.sin(L*R),Math.cos(L*R))/R/15)+24)%24,Dc=Math.asin(Math.sin(e*R)*Math.sin(L*R))/R,EqT=((q/15-RA+12)%24+24)%24-12,noon=12-c[2]/15-EqT;
+const ta=a=>Math.acos((-Math.sin(a*R)-Math.sin(Dc*R)*Math.sin(c[1]*R))/(Math.cos(Dc*R)*Math.cos(c[1]*R)))/R/15,asrA=-Math.atan(1/(1+Math.tan(Math.abs(c[1]-Dc)*R)))/R,mg=noon+ta(.833),ram=hp(date).month===9,base=Date.UTC(y,m,d),ts=h=>base+h*36e5;
+return [ts(noon-ta(18.5)),ts(noon),ts(noon+ta(asrA)),ts(mg),ts(mg+(ram?2:1.5))]}
+const ptf=(x,tz)=>isNaN(x)?'--':new Intl.DateTimeFormat(LANG==='en'?'en-US':'ar-SA',{hour:'numeric',minute:'2-digit',timeZone:tz,hour12:true}).format(x);
+function prayCard(n,s){if(!S.settings.pray)return '';const c=S.city;
+if(!c)return `<div class="card pre" onclick="openCity()"><b>الصلوات الخمس</b><div class="sub">حدد موقعك لعرض أوقات الصلاة وتتبعها</div></div>`;
+const T=prayT(n,c),pr=S.pr[s]||[0,0,0,0,0],now=Date.now(),isT=s===dk(new Date()),nx=isT?[0,1,2,3,4].find(i=>T[i]>now):undefined;let sub=esc(c[0]);
+if(nx!==undefined){const mi=Math.max(1,Math.round((T[nx]-now)/6e4));sub=PRN[nx]+' بعد '+(mi>=60?Math.floor(mi/60)+' س ':'')+(mi%60?mi%60+' د':'')}
+return `<div class="card"><div class="top2" onclick="openCity()" style="cursor:pointer"><div><b>الصلوات</b><div class="sub">${sub}</div></div><span class="pill">${pr.filter(Boolean).length}/5</span></div><div class="prow">${PRN.map((nm,i)=>`<button class="pq ${pr[i]?'d':''} ${i===nx?'nx':''}" onclick="prTog(${i})"><span>${nm}</span><b>${ptf(T[i],c[3])}</b><u>${pr[i]?CKS:''}</u></button>`).join('')}</div></div>`}
+function prTog(i){const s=dk(cvd()),a=S.pr[s]||(S.pr[s]=[0,0,0,0,0]);a[i]=a[i]?0:1;save();render()}
+function openCity(){const f=$('#sheet').hidden;$('#sheet').hidden=false;$('#sheet').innerHTML=`<div class="${f?'an':''}"><div class="grab"></div><div class="stl">اختر مدينتك</div><button class="btn p" style="width:100%;margin-bottom:12px" onclick="gps()">استخدام موقعي الحالي</button><div class="chips">${CITIES.map((c,i)=>`<span class="chip ${S.city&&S.city[0]===c[0]?'on':''}" onclick="setCity(${i})">${c[0]}</span>`).join('')}</div></div>`}
+function setCity(i){S.city=CITIES[i];save();shut();render()}
+function gps(){if(!navigator.geolocation)return toast('تعذر تحديد الموقع');navigator.geolocation.getCurrentPosition(p=>{S.city=['موقعي',p.coords.latitude,p.coords.longitude,Intl.DateTimeFormat().resolvedOptions().timeZone];save();shut();render()},()=>toast('تعذر تحديد الموقع'),{timeout:9000})}
+/* ---- templates ---- */
+const TPL=[['أذكار اليوم والليلة',[{n:'أذكار الصباح',t:'m',s:1},{n:'أذكار المساء',t:'e',s:1},{n:'أذكار النوم',t:'e'}]],['القرآن',[{n:'ورد القرآن',g:5,u:'صفحات'}]],['اللياقة',[{n:'تمرين',t:'m',e:2},{n:'المشي',g:30,u:'دقيقة'},{n:'شرب الماء',g:8,u:'كوب'}]],['التعلم',[{n:'قراءة كتاب',g:10,u:'صفحات'},{n:'تعلم لغة',g:15,u:'دقيقة'}]],['النوم والصحة',[{n:'النوم المبكر',t:'e',s:1},{n:'بدون جوال قبل النوم',t:'e'}]]];
+function openTpl(){const f=$('#sheet').hidden;$('#sheet').hidden=false;$('#sheet').innerHTML=`<div class="${f?'an':''}"><div class="grab"></div><div class="stl">قوالب جاهزة</div>${TPL.map((p,i)=>i<2&&!S.settings.islamic?'':`<div class="card tp"><div class="top2"><b>${p[0]}</b><button class="btn p" onclick="addTpl(${i})">إضافة</button></div><div class="chips">${p[1].map(x=>`<span class="chip">${x.n}</span>`).join('')}</div></div>`).join('')}</div>`}
+function addTpl(i){const t=dk(new Date());TPL[i][1].forEach(x=>{if(S.items.some(it=>it.type==='habit'&&it.name===x.n))return;const o={id:uid(),type:'habit',name:x.n,period:'day',days:[],target:x.g||'',unit:x.u||'',goal:'',star:!!x.s,created:t,tod:x.t||'',every:x.e||0};if(o.every>1)o.start=t;S.items.push(o)});save();shut();render();toast('تمت الإضافة')}
+Object.assign(AR,{'الوضع الإسلامي':'Islamic mode','يفعّل الصلوات الخمس، والمناسبات الهجرية، وقوالب الأذكار والقرآن':'Turns on the five prayers, Hijri occasions, and adhkar and Quran templates','الصباح':'Morning','الظهيرة':'Midday','المساء':'Evening','أي وقت':'Any time','وقت اليوم':'Time of day','قوالب جاهزة':'Templates','إيقاف مؤقت':'Pause','تعدّل يوم سابق':'Editing a past day','العودة لليوم':'Back to today','الصلوات الخمس':'Five daily prayers','حدد موقعك لعرض أوقات الصلاة وتتبعها':'Set your location to see prayer times and track them','الصلوات':'Prayers','الفجر':'Fajr','الظهر':'Dhuhr','العصر':'Asr','المغرب':'Maghrib','العشاء':'Isha','موقع الصلاة':'Prayer location','اختر مدينتك':'Choose your city','استخدام موقعي الحالي':'Use my current location','موقعي':'My location','تعذر تحديد الموقع':'Could not get location','الالتزام بالصلوات':'Prayer consistency','العناصر الموقوفة':'Paused items','استئناف':'Resume','تمت الإضافة':'Added','إضافة':'Add','السلسلة الحالية':'Current streak','أطول سلسلة':'Longest streak','آخر 30 يوم':'Last 30 days','آخر 12 أسبوع':'Last 12 weeks','إغلاق':'Close',
+'أذكار اليوم والليلة':'Daily adhkar','أذكار الصباح':'Morning adhkar','أذكار المساء':'Evening adhkar','أذكار النوم':'Bedtime adhkar','القرآن':'Quran','ورد القرآن':'Quran portion','اللياقة':'Fitness','تمرين':'Workout','المشي':'Walking','شرب الماء':'Drink water','التعلم':'Learning','قراءة كتاب':'Read a book','تعلم لغة':'Learn a language','النوم والصحة':'Sleep and health','النوم المبكر':'Sleep early','بدون جوال قبل النوم':'No phone before bed','صفحات':'pages','دقيقة':'minutes','كوب':'cups',
+'الرياض':'Riyadh','جدة':'Jeddah','مكة المكرمة':'Makkah','المدينة المنورة':'Madinah','الدمام':'Dammam','الطائف':'Taif','تبوك':'Tabuk','أبها':'Abha','بريدة':'Buraydah','حائل':'Hail','جازان':'Jazan','الدوحة':'Doha','الكويت':'Kuwait City','المنامة':'Manama','دبي':'Dubai','أبوظبي':'Abu Dhabi','مسقط':'Muscat','عمّان':'Amman','القاهرة':'Cairo','بغداد':'Baghdad','صنعاء':'Sanaa','الخرطوم':'Khartoum','الرباط':'Rabat','تونس':'Tunis','الجزائر':'Algiers','إسطنبول':'Istanbul','لندن':'London','نيويورك':'New York'});
+RX.push([/^(.+) بعد (?:(\d+) س ?)?(?:(\d+) د)?$/,m=>(AR[m[1]]||m[1])+' in '+(m[2]?m[2]+'h ':'')+(m[3]?m[3]+'m':'')],[/^إجمالي الإنجازات: (\d+)$/,m=>'Total completions: '+m[1]]);
+function shut(){$('#sheet').hidden=true;if(tab==='memo')render()}
+let mq='';
+const MD=[['سيئ','#ff6b6b'],['مو زين','#ff9f43'],['عادي','#ffd23f'],['زين','#7bd88f'],['ممتاز','#2ec4a6']];
+function rMemo(){$('#main').innerHTML=`<input class="note" id="mq" placeholder="ابحث في ملاحظاتك..." value="${esc(mq)}" oninput="mq=this.value;rMemoList()" style="margin:0 0 12px"><div id="ml"></div>`;rMemoList()}
+function rMemoList(){const q=mq.trim(),L=S.memos.filter(m=>!q||(m.t+' '+m.b).includes(q)).sort((a,b)=>(b.pin?1:0)-(a.pin?1:0)||b.u-a.u);
+$('#ml').innerHTML=L.length?L.map(m=>`<div class="card memo" onclick="openMemo('${m.id}')">${m.pin?'<span class="pill">مثبتة</span>':''}<b>${esc(m.t||'بدون عنوان')}</b><div class="mb">${esc(m.b)}</div><small>${fmt(new Date(m.u),'gregory',{day:'numeric',month:'short'})}</small></div>`).join(''):'<div class="empty">لا ملاحظات بعد. اضغط + واكتب أي شي تبيه</div>'}
+function openMemo(id){const m=S.memos.find(x=>x.id===id);E=m||{id:uid(),t:'',b:'',pin:false,u:Date.now(),_new:true};drawMemo()}
+function memoSave(){E.u=Date.now();if(E._new){if(!(E.t.trim()||E.b.trim()))return;delete E._new;S.memos.push(E)}save()}
+function drawMemo(){const first=$('#sheet').hidden;$('#sheet').hidden=false;$('#sheet').innerHTML=`<div class="${first?'an':''}"><div class="grab"></div><input class="ttl" placeholder="العنوان" value="${esc(E.t)}" oninput="E.t=this.value;memoSave()"><textarea class="mt" placeholder="اكتب أي شي..." oninput="E.b=this.value;memoSave()">${esc(E.b)}</textarea><div class="sub" style="margin:2px 6px">تنحفظ تلقائياً</div><div class="acts"><button class="btn p" onclick="shut()">تم</button><button class="btn" onclick="E.pin=!E.pin;memoSave();drawMemo()">${E.pin?'إلغاء التثبيت':'تثبيت'}</button>${E._new?'':'<button class="btn d" onclick="delMemo()">حذف</button>'}</div></div>`}
+const EK=[['meeting','اجتماع','#5b8cff'],['appt','موعد','#ff9f43'],['holiday','عيد','#2ec4a6'],['occ','مناسبة','#ff6b9d'],['bday','عيد ميلاد','#a78bfa'],['other','أخرى','#9a97b8']],ek=k=>EK.find(x=>x[0]===k)||EK[4];
+const HF=new Intl.DateTimeFormat('en-u-ca-islamic-umalqura',{day:'numeric',month:'numeric',year:'numeric'});
+function hp(d){const o={};HF.formatToParts(d).forEach(p=>{if(p.type==='month'||p.type==='day'||p.type==='year')o[p.type]=+p.value});return o}
+function hm(e,h,d){const q=hp(d);if(e.y==='hl')return q.month===h.month&&hp(addD(d,1)).month!==q.month;return q.month===h.month&&q.day===h.day}
+function nextOcc(ev,from){if(!ev.y)return ev.d;const f=pd(dk(from)),b=pd(ev.d),s=f<b?b:f;
+if(ev.y==='g'){const o=b;let c=new Date(s.getFullYear(),o.getMonth(),o.getDate());if(c<s)c=new Date(s.getFullYear()+1,o.getMonth(),o.getDate());return dk(c)}
+const h=hp(b);for(let i=0;i<400;i++){const d=addD(s,i);if(hm(ev,h,d))return dk(d)}return ev.d}
+function evInfo(ev){const t=pd(dk(new Date())),nd=nextOcc(ev,t);return{e:ev,nd,diff:Math.round((pd(nd)-t)/864e5)}}
+const evUp=n=>S.events.map(evInfo).filter(x=>x.diff>=0&&x.diff<=n).sort((a,b)=>a.diff-b.diff||(a.e.tm||'').localeCompare(b.e.tm||''));
+const hjf=s=>s?fmt(pd(s),'islamic-umalqura',{weekday:'long',day:'numeric',month:'long',year:'numeric'}):'';
+const tf=s=>s?new Intl.DateTimeFormat(LANG==='en'?'en-US':'ar-SA',{hour:'numeric',minute:'2-digit'}).format(new Date('2000-01-01T'+s)):'';
+const cd=d=>d===0?'اليوم':d===1?'غداً':d===2?'بعد يومين':d>0?'بعد '+d+' يوم':d===-1?'أمس':'قبل '+(-d)+' يوم';
+let evv='list',evM=new Date(),evSel='',evPast=false;
+const YK=['holiday','occ','bday'],qd=[[0,'اليوم'],[1,'بكرة'],[7,'الأسبوع الجاي']];
+const PRE=[['p-hny','رأس السنة الهجرية','h',1,1,'occ'],['p-ash','يوم عاشوراء','h',1,10,'occ'],['p-ram','بداية رمضان','h',9,1,'occ'],['p-rend','نهاية رمضان','hl',9,0,'occ'],['p-fit','عيد الفطر','h',10,1,'holiday'],['p-arf','يوم عرفة','h',12,9,'occ'],['p-adh','عيد الأضحى','h',12,10,'holiday'],['p-nat','اليوم الوطني','g',9,23,'occ'],['p-fnd','يوم التأسيس','g',2,22,'occ']];
+function evCard(ev){const{nd,diff}=evInfo(ev),k=ek(ev.k),dt=pd(nd);let ag='';if(ev.k==='bday'&&ev.y==='g'){const a=dt.getFullYear()-pd(ev.d).getFullYear();if(a>0)ag=' · يكمل '+a}
+return `<div class="row ev" style="--c:${k[2]}" onclick="openEv('${ev.id}')"><div class="evd" style="--c:${k[2]}"><b>${fmt(dt,'gregory',{day:'numeric'})}</b><span>${fmt(dt,'gregory',{month:'short'})}</span></div><div class="nm">${esc(ev.t)}<small>${k[1]}${ag}${ev.tm?' · '+tf(ev.tm):''} · ${fmt(dt,'islamic-umalqura',{day:'numeric',month:'long'})}${ev.y&&ev.k!=='bday'?' · سنوي':''}</small>${ev.n?`<div class="en">${esc(ev.n)}</div>`:''}</div><span class="pill ${diff>=0&&diff<=1?'hot':''}">${cd(diff)}</span></div>`}
+function evHero(x){const e=x.e,k=ek(e.k),dt=pd(x.nd),p=x.diff>=30?0:Math.round((1-x.diff/30)*100);
+return `<div class="hc evh" onclick="openEv('${e.id}')"><div class="ring" style="--p:${p}"><b>${x.diff===0?'اليوم':x.diff===1?'غداً':x.diff}</b></div><div class="evt"><div class="sub">الحدث القادم · ${k[1]}</div><div class="big2">${esc(e.t)}</div><div class="sub">${fmt(dt,'gregory',{weekday:'long',day:'numeric',month:'long'})}${e.tm?' · '+tf(e.tm):''} · ${fmt(dt,'islamic-umalqura',{day:'numeric',month:'long'})}</div></div></div>`}
+function occIn(e,y,mo){const out=[],dim=new Date(y,mo+1,0).getDate(),b=pd(e.d);
+if(!e.y){if(b.getFullYear()===y&&b.getMonth()===mo)out.push(b.getDate())}
+else if(e.y==='g'){if(b.getMonth()===mo&&y>=b.getFullYear())out.push(b.getDate())}
+else{const h=hp(b);for(let d=1;d<=dim;d++){const dt=new Date(y,mo,d);if(dt>=b){if(hm(e,h,dt))out.push(d)}}}
+return out}
+const evOn=ds=>{const d=pd(ds);return S.events.filter(e=>occIn(e,d.getFullYear(),d.getMonth()).includes(d.getDate()))};
+function evMon(n){evM=new Date(evM.getFullYear(),evM.getMonth()+n,1);render()}
+function calH(){const y=evM.getFullYear(),mo=evM.getMonth(),first=new Date(y,mo,1),start=first.getDay(),dim=new Date(y,mo+1,0).getDate(),tds=dk(new Date()),mp={};
+S.events.forEach(e=>occIn(e,y,mo).forEach(d=>(mp[d]=mp[d]||[]).push(e)));
+let c='';for(let i=0;i<start;i++)c+='<i></i>';
+for(let d=1;d<=dim;d++){const dt=new Date(y,mo,d),ds=dk(dt),es=mp[d]||[],col=es.length?ek((es.find(e=>e.k==='holiday'||e.k==='occ')||es[0]).k)[2]:'transparent';c+=`<button class="cd ${ds===tds?'td':''} ${ds===evSel?'sl':''} ${es.length?'hv':''} ${es.some(e=>e.k==='holiday'||e.k==='occ')?'sp':''}" style="--c:${col}" onclick="evSel='${ds}';render()"><b>${d}</b><small>${hp(dt).day}</small><span>${es.filter(e=>e.k!=='holiday'&&e.k!=='occ').slice(0,3).map(e=>`<u style="background:${ek(e.k)[2]}"></u>`).join('')}</span></button>`}
+const sp=[];Object.keys(mp).forEach(d=>mp[d].forEach(e=>{if(e.k==='holiday'||e.k==='occ')sp.push([+d,e])}));sp.sort((a,b)=>a[0]-b[0]);
+const strip=sp.length?`<div class="spl">${sp.map(x=>`<span class="spc" style="--c:${ek(x[1].k)[2]}" onclick="evSel='${dk(new Date(y,mo,x[0]))}';render()"><em>${x[0]}</em>${esc(x[1].t)}</span>`).join('')}</div>`:'';
+const hr=(()=>{const a=fmt(first,'islamic-umalqura',{month:'long'}),b=fmt(new Date(y,mo,dim),'islamic-umalqura',{month:'long',year:'numeric'});return b.includes(a)?b:a+' – '+b})();
+const ch='<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>',nx='<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>';
+let h=`<div class="cal-h"><button class="cv" onclick="evMon(-1)">${ch}</button><div><b style="font-size:18px">${fmt(first,'gregory',{month:'long',year:'numeric'})}</b><div class="sub">${hr}</div></div><button class="cv" onclick="evMon(1)">${nx}</button></div>${strip}<div class="cg">${DN.map(d=>`<span>${d}</span>`).join('')}${c}</div>`;
+if(evSel){const sd=pd(evSel),es=evOn(evSel);h+=`<h2>${fmt(sd,'gregory',{weekday:'long',day:'numeric',month:'long'})} · ${fmt(sd,'islamic-umalqura',{day:'numeric',month:'long'})}</h2>`+(es.length?es.map(evCard).join(''):'<div class="empty">لا أحداث في هذا اليوم<br><small>اضغط + لإضافة حدث في هذا اليوم</small></div>')}
+return h}
+function rEv(){const tog=`<div class="seg"><button class="${evv==='list'?'on':''}" onclick="evv='list';render()">قائمة</button><button class="${evv==='cal'?'on':''}" onclick="evv='cal';render()">تقويم</button></div>`;
+if(evv==='cal'){$('#main').innerHTML=tog+calH();return}
+const L=S.events.map(evInfo),up=L.filter(x=>x.diff>=0).sort((a,b)=>a.diff-b.diff||(a.e.tm||'').localeCompare(b.e.tm||'')),past=L.filter(x=>x.diff<0).sort((a,b)=>b.diff-a.diff);
+const g=(t,a)=>a.length?`<h2>${t}</h2><div class="tl">${a.map(x=>evCard(x.e)).join('')}</div>`:'';
+const miss=S.settings.islamic&&PRE.some(p=>!S.events.some(e=>e.pre===p[0]));
+let h=tog+(up.length?evHero(up[0]):'')+(miss?`<div class="card pre" onclick="addPre()"><b>أضف الأعياد والمناسبات</b><div class="sub">رمضان، الفطر، عرفة، الأضحى، رأس السنة، اليوم الوطني...</div></div>`:'');
+const r=up.slice(1);h+=g('اليوم',r.filter(x=>x.diff===0))+g('هذا الأسبوع',r.filter(x=>x.diff>0&&x.diff<=7))+g('لاحقاً',r.filter(x=>x.diff>7));
+if(past.length)h+=`<button class="lnk" onclick="evPast=!evPast;render()">${evPast?'إخفاء السابقة':'السابقة ('+past.length+')'}</button>`+(evPast?`<div class="tl">${past.map(x=>evCard(x.e)).join('')}</div>`:'');
+if(!S.events.length)h+='<div class="empty">لا أحداث بعد. اضغط + لإضافة موعد أو مناسبة</div>';
+$('#main').innerHTML=h}
+function setIslamic(on){S.settings.islamic=on;S.settings.pray=on;if(on){S.settings.hijri=true;addPre(true)}save();render();if(on&&!S.city)openCity()}
+function addPre(q){const t=pd(dk(new Date()));PRE.forEach(p=>{if(S.events.some(e=>e.pre===p[0]))return;let ds='';
+if(p[2]==='h'||p[2]==='hl'){for(let i=0;i<400;i++){const d=addD(t,i),q=hp(d);if(p[2]==='hl'?(q.month===p[3]&&hp(addD(d,1)).month!==q.month):(q.month===p[3]&&q.day===p[4])){ds=dk(d);break}}}
+else{let d=new Date(t.getFullYear(),p[3]-1,p[4]);if(d<t)d=new Date(t.getFullYear()+1,p[3]-1,p[4]);ds=dk(d)}
+if(ds)S.events.push({id:uid(),t:p[1],k:p[5],d:ds,tm:'',n:p[2]!=='g'?'حسب تقويم أم القرى':'',y:p[2],pre:p[0]})});
+save();if(!q){render();toast('تمت إضافة المناسبات')}}
+function openEv(id){const e=S.events.find(x=>x.id===id);E=e?{...e,more:true,kM:1}:{id:uid(),t:'',k:'meeting',d:(evv==='cal'&&evSel&&tab==='ev')?evSel:dk(new Date()),tm:'',n:'',y:'',_new:true};drawEv()}
+const HM=['محرم','صفر','ربيع الأول','ربيع الآخر','جمادى الأولى','جمادى الآخرة','رجب','شعبان','رمضان','شوال','ذو القعدة','ذو الحجة'];
+function hij2g(y,m,d){if(!y||!m||!d)return '';const b=new Date(Date.UTC(622,6,19)+((y-1)*354.367+(m-1)*29.530588+(d-1))*864e5),c=new Date(b.getUTCFullYear(),b.getUTCMonth(),b.getUTCDate());
+for(let i=-25;i<=25;i++){const x=addD(c,i),q=hp(x);if(q.year===y&&q.month===m&&q.day===d)return dk(x)}return ''}
+function hijriPick(){return `<div class="two"><input type="number" inputmode="numeric" min="1" max="30" placeholder="يوم" value="${E.hd||''}" oninput="setH('hd',this.value)"><input type="number" inputmode="numeric" placeholder="السنة" value="${E.hy||''}" oninput="setH('hy',this.value)"></div><div class="chips">${HM.map((m,i)=>`<span class="chip ${E.hm===i+1?'on':''}" onclick="setH('hm',${i+1});drawEv()">${m}</span>`).join('')}</div>`}
+function setCalH(){const q=hp(pd(E.d));E.hy=q.year;E.hm=q.month;E.hd=q.day;E.cal='h';drawEv()}
+function setH(k,v){E[k]=+v||0;const g=hij2g(E.hy,E.hm,E.hd);if(g)E.d=g;const l=$('#hjl');if(l)l.textContent=g?fmt(pd(g),'gregory',{weekday:'long',day:'numeric',month:'long',year:'numeric'}):'هذا اليوم غير موجود في الشهر الهجري'}
+function chipsK(){return EK.map(k=>`<span class="chip" style="${E.k===k[0]?'background:'+k[2]+';color:#121212':''}" onclick="E.k='${k[0]}';E.kM=1;if(!YK.includes(E.k))E.y='';else if(E.k==='bday'&&!E.y)E.y='g';drawEv()">${k[1]}</span>`).join('')}
+function autoK(){if(E.kM)return;const m=[['bday',/ميلاد|birthday/i],['meeting',/اجتماع|meeting|مقابلة|لقاء/i],['appt',/موعد|دكتور|طبيب|عيادة|مستشفى|appointment|doctor/i],['holiday',/عيد|إجازة|اجازة|holiday/i],['occ',/زواج|عرس|حفل|تخرج|خطوبة|عزيمة|party|wedding/i]],f=m.find(x=>x[1].test(E.t)),k=f?f[0]:'meeting';
+if(k!==E.k){E.k=k;if(k==='bday')E.y='g';else if(!YK.includes(k))E.y='';if(E.more){drawEv();const i=$('#et');i.focus();i.setSelectionRange(i.value.length,i.value.length)}}}
+function drawEv(){const first=$('#sheet').hidden,qm=E.pick?null:qd.find(q=>E.d===dk(addD(new Date(),q[0]))),showD=E.pick||!qm;
+$('#sheet').hidden=false;$('#sheet').innerHTML=`<div class="${first?'an':''}"><div class="grab"></div><div class="stl">${E._new?'حدث جديد':'تعديل الحدث'}</div>
+<input class="ttl" id="et" placeholder="وش الحدث؟" value="${esc(E.t)}" oninput="E.t=this.value;autoK()">
+<div class="chips">${qd.map(q=>`<span class="chip ${qm&&qm[0]===q[0]?'on':''}" onclick="E.d=dk(addD(new Date(),${q[0]}));E.pick=0;drawEv()">${q[1]}</span>`).join('')}<span class="chip ${showD?'on':''}" onclick="E.pick=1;drawEv()">تاريخ آخر</span></div>
+${showD?`<div class="seg rv"><button class="${E.cal==='h'?'':'on'}" onclick="E.cal='g';drawEv()">ميلادي</button><button class="${E.cal==='h'?'on':''}" onclick="setCalH()">هجري</button></div>${E.cal==='h'?hijriPick():`<input type="date" class="dt" value="${E.d}" oninput="E.d=this.value;$('#hjl').textContent=hjf(E.d)">`}`:''}
+<div class="sub" id="hjl" style="margin:4px 6px">${showD&&E.cal==='h'?fmt(pd(E.d),'gregory',{weekday:'long',day:'numeric',month:'long',year:'numeric'}):hjf(E.d)}</div>
+<button class="lnk" onclick="E.more=!E.more;drawEv()">${E.more?'إخفاء الخيارات':'المزيد من الخيارات'}</button>
+${E.more?`<div class="fl">النوع</div><div class="chips">${chipsK()}</div><div class="fl">الوقت</div><input type="time" class="dt" value="${E.tm}" oninput="E.tm=this.value">${YK.includes(E.k)?`<div class="fl">التكرار</div><div class="seg rv"><button class="${E.y?'':'on'}" onclick="E.y='';drawEv()">مرة واحدة</button><button class="${E.y==='g'?'on':''}" onclick="E.y='g';drawEv()">سنوي ميلادي</button><button class="${E.y==='h'?'on':''}" onclick="E.y='h';drawEv()">سنوي هجري</button></div>`:''}<textarea placeholder="ملاحظة (اختياري)" oninput="E.n=this.value" style="min-height:64px;margin-top:10px">${esc(E.n)}</textarea>`:''}
+<div class="acts"><button class="btn p" onclick="saveEv()">حفظ</button>${E._new?'':'<button class="btn d" onclick="delEv()">حذف</button>'}</div></div>`}
+function saveEv(){if(!E.t.trim())return $('#et').focus();if(!E.d)return toast('اختر التاريخ');const o={...E};delete o._new;o.t=o.t.trim();delete o.more;delete o.pick;delete o.kM;delete o.cal;delete o.hy;delete o.hm;delete o.hd;const i=S.events.findIndex(x=>x.id===o.id);i<0?S.events.push(o):S.events[i]=o;save();shut();render()}
+let CB=null;
+function ask(msg,fn){CB=fn;const f=$('#sheet').hidden;$('#sheet').hidden=false;$('#sheet').innerHTML=`<div class="${f?'an':''}"><div class="grab"></div><div class="stl">${msg}</div><div class="acts"><button class="btn d" onclick="const f=CB;shut();if(f)f()">نعم، احذف</button><button class="btn p" onclick="shut()">إلغاء</button></div></div>`}
+function toast(m){let t=$('#toast');if(!t){t=document.createElement('div');t.id='toast';document.body.appendChild(t)}t.textContent=m;t.className='show';clearTimeout(t._t);t._t=setTimeout(()=>{t.className=''},2200)}
+function delEv(){const id=E.id;ask('حذف هذا الحدث؟',()=>{S.events=S.events.filter(x=>x.id!==id);save();render()})}
+function delMemo(){const id=E.id;ask('حذف هذه الملاحظة؟',()=>{S.memos=S.memos.filter(m=>m.id!==id);save();render()})}
+function openItem(id){const it=S.items.find(i=>i.id===id);E=it?{...it,days:[...(it.days||[])]}:{id:uid(),type:'habit',name:'',period:'once',days:[],target:'',unit:'',goal:'',star:false,created:dk(new Date()),_new:true};drawItem()}
+function drawItem(){const h=E.type==='habit',first=$('#sheet').hidden,md=E.mode||(E.every>1?'every':E.days.length?'days':'daily');$('#sheet').hidden=false;$('#sheet').innerHTML=`<div class="${first?'an':''}"><div class="grab"></div><div class="stl">${E._new?'عنصر جديد':'تعديل'}</div>${E._new?'<button class="lnk" style="margin-top:-10px" onclick="openTpl()">قوالب جاهزة</button>':''}
+<input class="ttl" id="nm" placeholder="${h?'اسم العادة':'اسم المهمة'}" value="${esc(E.name)}" oninput="E.name=this.value">
+<div class="seg"><button class="${h?'on':''}" onclick="E.type='habit';drawItem()">عادة</button><button class="${h?'':'on'}" onclick="E.type='task';drawItem()">مهمة</button></div>
+${h?`<div class="fl">التكرار</div><div class="seg">${[['daily','كل يوم'],['days','أيام محددة'],['every','كل عدة أيام']].map(m=>`<button class="${md===m[0]?'on':''}" onclick="setMode('${m[0]}')">${m[1]}</button>`).join('')}</div>${md==='days'?`<div class="days">${DN.map((d,i)=>`<span class="dd ${E.days.includes(i)?'on':''}" onclick="tgDay(${i})">${d}</span>`).join('')}</div>`:''}${md==='every'?`<div class="chips">${[2,3,4,7].map(n=>`<span class="chip ${E.every===n?'on':''}" onclick="E.every=${n};drawItem()">${n===2?'يوم ويوم لا':'كل '+n+' أيام'}</span>`).join('')}</div>${E._new?`<div class="fl">يبدأ</div><div class="seg"><button class="${E.startOff?'':'on'}" onclick="E.startOff=0;drawItem()">من اليوم</button><button class="${E.startOff?'on':''}" onclick="E.startOff=1;drawItem()">من بكرة</button></div>`:''}`:''}
+<div class="fl">قياس رقمي (اختياري)</div><div class="two"><input type="number" inputmode="numeric" placeholder="الهدف: 10" value="${E.target}" oninput="E.target=+this.value||''"><input placeholder="الوحدة: صفحة" value="${esc(E.unit)}" oninput="E.unit=this.value"></div><div class="fl">وقت اليوم</div><div class="chips">${[['','أي وقت'],['m','الصباح'],['n','الظهيرة'],['e','المساء']].map(v=>`<span class="chip ${(E.tod||'')===v[0]?'on':''}" onclick="E.tod='${v[0]}';drawItem()">${v[1]}</span>`).join('')}</div>`
+:`<div class="fl">التكرار</div><div class="chips">${[['once','مرة واحدة'],['day','يومي'],['week','أسبوعي'],['month','شهري'],['year','سنوي']].map(p=>`<span class="chip ${E.period===p[0]?'on':''}" onclick="E.period='${p[0]}';drawItem()">${p[1]}</span>`).join('')}</div><div class="fl">${E.period==='once'?'كم مرة تحتاج تنجزها؟':'كم مرة في '+({day:'اليوم',week:'الأسبوع',month:'الشهر',year:'السنة'})[E.period]+'؟'}</div><div class="st"><button class="mn" onclick="E.times=Math.max(1,(E.times||1)-1);drawItem()">−</button><b>${E.times||1}<small>مرة</small></b><button class="pl" onclick="E.times=Math.min(99,(E.times||1)+1);drawItem()">+</button></div>`}
+${S.goals.length?`<div class="fl">الهدف المرتبط</div><div class="chips"><span class="chip ${E.goal?'':'on'}" onclick="E.goal='';drawItem()">بدون</span>${S.goals.map(g=>`<span class="chip ${E.goal===g.id?'on':''}" onclick="E.goal='${g.id}';drawItem()">${esc(g.title)}</span>`).join('')}</div>`:''}
+<div class="sw" style="margin-top:10px;border:0"><span>★ أساسي (يظهر في يوم صعب)</span><span class="tg ${E.star?'on':''}" onclick="E.star=!E.star;drawItem()"></span></div>${E._new?'':`<div class="sw" style="border:0"><span>إيقاف مؤقت</span><span class="tg ${E.paused?'on':''}" onclick="E.paused=!E.paused;drawItem()"></span></div>`}
+<div class="acts"><button class="btn p" onclick="saveItem()">حفظ</button>${E._new?'':'<button class="btn d" onclick="delItem()">حذف</button>'}</div></div>`}
+function setMode(m){E.mode=m;if(m==='daily'){E.days=[];E.every=0}if(m==='days')E.every=0;if(m==='every'){E.days=[];if(!(E.every>1))E.every=2}drawItem()}
+function tgDay(i){const k=E.days.indexOf(i);k<0?E.days.push(i):E.days.splice(k,1);drawItem()}
+function saveItem(){if(!E.name.trim())return $('#nm').focus();const o={...E};if(E.every>1&&E._new){o.start=dk(addD(new Date(),E.startOff||0));o.created=o.start}delete o._new;delete o.mode;delete o.startOff;o.name=o.name.trim();if(o.type==='task'){o.days=[];o.target='';o.unit='';o.every=0;o.times=o.times||1}else o.period='day';if(o.every>1){if(!o.start)o.start=o.created}else{o.every=0;delete o.start}
+const i=S.items.findIndex(x=>x.id===o.id);i<0?S.items.push(o):S.items[i]=o;save();shut();render()}
+function delItem(){S.items=S.items.filter(i=>i.id!==E.id);delete S.logs[E.id];save();shut();render()}
+function openGoal(id){const g=S.goals.find(x=>x.id===id);E=g?{...g}:{id:uid(),title:'',period:'month',target:10,_new:true};drawGoal()}
+function drawGoal(){const first=$('#sheet').hidden;$('#sheet').hidden=false;$('#sheet').innerHTML=`<div class="${first?'an':''}"><div class="grab"></div><div class="stl">${E._new?'هدف جديد':'تعديل الهدف'}</div>
+<input class="ttl" id="gt" placeholder="مثال: قراءة 24 كتاب" value="${esc(E.title)}" oninput="E.title=this.value">
+<div class="fl">المدة</div><div class="seg">${['year','month','week'].map(p=>`<button class="${E.period===p?'on':''}" onclick="E.period='${p}';drawGoal()">${PN[p]}</button>`).join('')}</div>
+<div class="fl">المطلوب (عدد مرات إنجاز العناصر المرتبطة)</div><input type="number" inputmode="numeric" value="${E.target}" oninput="E.target=Math.max(1,+this.value||1)">
+<div class="acts"><button class="btn p" onclick="saveGoal()">حفظ</button>${E._new?'':'<button class="btn d" onclick="delGoal()">حذف</button>'}</div></div>`}
+function saveGoal(){if(!E.title.trim())return $('#gt').focus();const o={...E};delete o._new;o.title=o.title.trim();const i=S.goals.findIndex(x=>x.id===o.id);i<0?S.goals.push(o):S.goals[i]=o;save();shut();render()}
+function delGoal(){S.goals=S.goals.filter(g=>g.id!==E.id);S.items.forEach(i=>{if(i.goal===E.id)i.goal=''});save();shut();render()}
+$('#sheet').onclick=e=>{if(e.target.id==='sheet')shut()};applyLang();render();
+</script>
+</body>
+</html>
